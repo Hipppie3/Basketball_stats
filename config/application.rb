@@ -14,5 +14,6 @@ module BasketballStats
         origins '*' # Update with the appropriate origin or '*' to allow all origins
         resource '*', headers: :any, methods: [:get, :post, :options] # Adjust the allowed methods as per your requirements
       end
+    end
   end
 end

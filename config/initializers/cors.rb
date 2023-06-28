@@ -1,6 +1,6 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins '*' 
+    origins 'https://magnificent-meerkat-ba6b33.netlify.app' 
     # Specify the domain that is allowed to access your API
 
     resource '/api/*',
