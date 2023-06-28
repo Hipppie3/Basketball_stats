@@ -16,3 +16,4 @@ production:
   database: basketball_stats_production
   username: basketball_stats
   password: <%= ENV["BASKETBALL_STATS_DATABASE_PASSWORD"] %>
+   url: <%= ENV['DATABASE_URL'] %>
