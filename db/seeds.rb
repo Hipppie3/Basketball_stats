@@ -1,4 +1,4 @@
-p1 = Player.create(first_name: "Daniel", last_name: "Truong", height: "5'4", age: 33, college: "CSULB", birthday: nil, job: "NBA", country: "USA", image: "https://imgur.com/CjKhNbX.png")
+p1 = Player.create(first_name: "Daniel", last_name: "Truong", height: "5'4", age: 33, college: "CSULB", birthday: nil, job: "NBA", country: "USA", image: "https://www.dropbox.com/s/m33hj1xaannko5o/daniel.png?dl=0")
 p2 = Player.create(first_name: "kenjihiep", last_name: "Yamazawa", height: "5'8", age: 37,
 college: nil, birthday: nil, job: "Mechanical Engineer", country: "USA", image: "https://imgur.com/NPSjBWe.png")
 p3 = Player.create(first_name: "hiebert", last_name: "Ike", height: "5'8", age: 37, college: nil, birthday: nil, job: "Nurse", country: "USA", image: "https://imgur.com/PrBIQo7.png")
