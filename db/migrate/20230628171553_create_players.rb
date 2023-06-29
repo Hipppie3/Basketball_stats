@@ -9,8 +9,7 @@ class CreatePlayers < ActiveRecord::Migration[7.0]
       t.date :birthday
       t.string :job
       t.string :country
-      t.string :cloudinary_image_public_id
-
+      t.string :image
 
       t.timestamps
     end
