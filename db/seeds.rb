@@ -1,17 +1,11 @@
-require 'open-uri'
-
-image_url = 'https://www.dropbox.com/s/m33hj1xaannko5o/daniel.png'
-
-
-
-p1 = Player.create(first_name: "Daniel", last_name: "Truong", height: "5'4", age: 33, college: "CSULB", birthday: nil, job: "NBA", country: "USA", image: URI.open(image_url))
+p1 = Player.create(first_name: "Daniel", last_name: "Truong", height: "5'4", age: 33, college: "CSULB", birthday: nil, job: "NBA", country: "USA", image: "https://imgur.com/CjKhNbX.png")
 p2 = Player.create(first_name: "kenjihiep", last_name: "Yamazawa", height: "5'8", age: 37,
-college: nil, birthday: nil, job: "Mechanical Engineer", country: "USA", image: URI.open(image_url))
-p3 = Player.create(first_name: "hiebert", last_name: "Ike", height: "5'8", age: 37, college: nil, birthday: nil, job: "Nurse", country: "USA", image: URI.open(image_url))
-p4 = Player.create(first_name: "Mike", last_name: "Phan", height: "5'10", age: 37, college: nil, birthday: nil, job: "Banking", country: "USA", image: URI.open(image_url))
-p5 = Player.create(first_name: "Matthiep", last_name: "Tran", height: "5'10", age: 37, college: nil, birthday: nil, job: "Automobile", country: "USA", image: URI.open(image_url))
-p6 = Player.create(first_name: "hiepeter", last_name: "Vu", height: "5'10", age: 37, college: nil, birthday: nil, job: "Amazon", country: "USA", image: URI.open(image_url))
-p7 = Player.create(first_name: "Lynn haiep", last_name: "Ha", height: "5'3", age: 37, college: nil, birthday: nil, job: "NFL", country: "USA", image: URI.open(image_url))
+college: nil, birthday: nil, job: "Mechanical Engineer", country: "USA", image: "https://imgur.com/NPSjBWe.png")
+p3 = Player.create(first_name: "hiebert", last_name: "Ike", height: "5'8", age: 37, college: nil, birthday: nil, job: "Nurse", country: "USA", image: "https://imgur.com/PrBIQo7.png")
+p4 = Player.create(first_name: "Mike", last_name: "Phan", height: "5'10", age: 37, college: nil, birthday: nil, job: "Banking", country: "USA", image: "https://imgur.com/nI1Gb5X.png")
+p5 = Player.create(first_name: "Matthiep", last_name: "Tran", height: "5'10", age: 37, college: nil, birthday: nil, job: "Automobile", country: "USA", image: "https://imgur.com/KzMouTe.png")
+p6 = Player.create(first_name: "hiepeter", last_name: "Vu", height: "5'10", age: 37, college: nil, birthday: nil, job: "Amazon", country: "USA", image: "https://imgur.com/TbJcPaY.png")
+p7 = Player.create(first_name: "Lynn haiep", last_name: "Ha", height: "5'3", age: 37, college: nil, birthday: nil, job: "NFL", country: "USA", image: "https://imgur.com/yKNF4vY.png")
 
 i1 = Information.create(team: "Park Crew", position: "Point Guard", number: 0, player_id: p1.id)
 i2 = Information.create(team: "Park Crew", position: "Guard", number: 8, player_id: p2.id)
