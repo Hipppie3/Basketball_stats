@@ -1,0 +1,11 @@
+development: 
+  cloud_name: "dd3onzhpi"
+  api_key: "657534222866627"
+  api_secret: "PeB01Ydny1FG7LcyxeOJoHbCXA8"
+  secure: true
+
+production:
+  cloud_name: "dd3onzhpi"
+  api_key: "657534222866627"
+  api_secret: "PeB01Ydny1FG7LcyxeOJoHbCXA8"
+  secure: true
