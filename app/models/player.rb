@@ -1,4 +1,6 @@
 class Player < ApplicationRecord
- has_many :informations
- has_many :stats
+  has_many :statistics, dependent: :destroy
+  has_many :videos, dependent: :destroy
+  accepts_nested_attributes_for :statistics
+  accepts_nested_attributes_for :videos
 end

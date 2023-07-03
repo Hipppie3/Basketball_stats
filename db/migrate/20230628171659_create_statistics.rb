@@ -1,6 +1,7 @@
-class CreateStats < ActiveRecord::Migration[7.0]
+class CreateStatistics < ActiveRecord::Migration[7.0]
   def change
-    create_table :stats do |t|
+    create_table :statistics do |t|
+      
       t.date :game_date
       t.string :matchup
       t.string :w_l
