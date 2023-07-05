@@ -5,7 +5,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     # Specify the domain that is allowed to access your API
 
     resource '/api/*',
-      headers: ['Authorization', 'Content-Type'],
+      headers: [:post, :get],
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
   end
