@@ -3,6 +3,6 @@ Rails.application.routes.draw do
     resources :statistics
     resources :videos
   end
-  match '*all', controller: 'application', action: 'cors_preflight_check', via: :options
+   get 'cors-test', to: 'test#cors_test'
 
 end
