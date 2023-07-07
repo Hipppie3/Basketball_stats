@@ -2,11 +2,13 @@ class VideosController < ApplicationController
   before_action :set_player
 
   def create
-    @video = @player.videos.build(video_params)
-    if @video.save
-      render json: @video, status: :created
+    player = Video.find(params[:player_id])
+    video = player.videos.create(video_params)
+
+    if video.save
+      render json: video, status: :created
     else
-      render json: @video.errors, status: :unprocessable_entity
+      render json: video.errors, status: :unprocessable_entity
     end
   end
 
@@ -20,8 +22,8 @@ class VideosController < ApplicationController
   end
 
   def destroy
-    @video = @player.videos.find(params[:id])
-    @video.destroy
+    video = Video.find(params[:id])
+    video.destroy
     head :no_content
   end
 
