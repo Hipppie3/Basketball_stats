@@ -21,12 +21,9 @@ class StatisticsController < ApplicationController
     end
   end
 
-def create
+  def create
     player = Player.find(params[:player_id])
-    game_date = Date.strptime(params[:statistic][:game_date], "%m/%d/%y")
-    formatted_date = game_date.strftime("%m/%d/%y")
-    statistic = player.statistics.create(statistic_params.merge(game_date: formatted_date))
-
+    statistic = player.statistics.create(statistic_params)
 
     if statistic.save
       render json: statistic, status: :created
