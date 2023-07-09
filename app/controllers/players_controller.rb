@@ -1,14 +1,15 @@
 class PlayersController < ApplicationController
   def index
     players = Player.all
-    players_data = players.map do |player|
-      {
-        id: player.id,
-        first_name: player.first_name,
-        last_name: player.last_name,
-        image_url: url_for(player.image) if player.image.attached?
-      }
-    end
+players_data = players.map do |player|
+  {
+    id: player.id,
+    first_name: player.first_name,
+    last_name: player.last_name,
+    image_url: player.image.attached? ? url_for(player.image) : nil
+  }
+end
+
 
     render json: players_data, status: :ok
   end
