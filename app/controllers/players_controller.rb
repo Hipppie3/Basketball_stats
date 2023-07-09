@@ -4,15 +4,14 @@ class PlayersController < ApplicationController
     render json: player, status: :ok
   end
 
-def show
-  player = Player.find(params[:id])
-  statistics = player.statistics
-  videos = player.videos
-  image_url = player.image.url if player.image.attached?
+  def show
+    player = Player.find(params[:id])
+    statistics = player.statistics
+    videos = player.videos
+    image_url = url_for(player.image) if player.image.attached?
 
-  render json: { player: player, statistics: statistics, videos: videos, image_url: image_url }, status: :ok
-end
-
+    render json: { player: player, statistics: statistics, videos: videos, image_url: image_url }, status: :ok
+  end
 
   def upload_image
     player = Player.find(params[:id])
