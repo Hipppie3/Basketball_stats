@@ -1,7 +1,15 @@
 class PlayersController < ApplicationController
   def index
-    player = Player.all
-    render json: player, status: :ok
+    players = Player.all.map do |player|
+      {
+        id: player.id,
+        first_name: player.first_name,
+        last_name: player.last_name,
+        image_url: url_for(player.image) if player.image.attached?
+      }
+    end
+
+    render json: players, status: :ok
   end
 
   def show
