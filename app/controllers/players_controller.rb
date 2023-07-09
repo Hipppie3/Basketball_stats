@@ -14,6 +14,23 @@ def show
   render json: { player: player, statistics: statistics, videos: videos, image_url: image_url }, status: :ok
 end
 
+class PlayersController < ApplicationController
+  # ...
+
+  def upload_image
+    player = Player.find(params[:player_id])
+    image = params[:player][:image]
+
+    if image.present?
+      player.image.attach(image)
+      render json: { message: 'Image uploaded successfully' }, status: :ok
+    else
+      render json: { error: 'No image provided' }, status: :unprocessable_entity
+    end
+  end
+
+  # ...
+end
 
 
 
