@@ -1,8 +1,14 @@
 class PlayersController < ApplicationController
-  def index
-    player = Player.all
-    render json: player, status: :ok
+def index
+  players = Player.all
+  players_with_image_urls = players.map do |player|
+    image_url = url_for(player.image.variant(resize: '200x200')) if player.image.attached?
+    { player: player, image_url: image_url }
   end
+
+  render json: players_with_image_urls, status: :ok
+end
+
 
   def show
     player = Player.find(params[:id])
