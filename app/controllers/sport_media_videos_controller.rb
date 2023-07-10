@@ -2,36 +2,36 @@ class SportMediaVideosController < ApplicationController
   before_action :set_sport
 
   def index
-    @videos = @sport.media_videos
-    render json: @videos
+    sport_media_videos = @sport.sport_media_videos
+    render json: sport_media_videos
   end
 
   def show
-  @sport = Sport.includes(:sport_media_videos).find(params[:id])
-  render json: @sport, include: :sport_media_videos
-end
+    sport_media_video = @sport.sport_media_videos.find(params[:id])
+    render json: sport_media_video
+  end
 
   def create
-    @video = @sport.media_videos.build(video_params)
-    if @video.save
-      render json: @video, status: :created
+    sport_media_video = @sport.sport_media_videos.build(sport_media_video_params)
+    if sport_media_video.save
+      render json: sport_media_video, status: :created
     else
-      render json: @video.errors, status: :unprocessable_entity
+      render json: sport_media_video.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    @video = @sport.media_videos.find(params[:id])
-    if @video.update(video_params)
-      render json: @video, status: :ok
+    sport_media_video = @sport.sport_media_videos.find(params[:id])
+    if sport_media_video.update(sport_media_video_params)
+      render json: sport_media_video, status: :ok
     else
-      render json: @video.errors, status: :unprocessable_entity
+      render json: sport_media_video.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @video = @sport.media_videos.find(params[:id])
-    @video.destroy
+    sport_media_video = @sport.sport_media_videos.find(params[:id])
+    sport_media_video.destroy
     head :no_content
   end
 
@@ -41,7 +41,7 @@ end
     @sport = Sport.find(params[:sport_id])
   end
 
-  def video_params
+  def sport_media_video_params
     params.require(:video).permit(:url, :title)
   end
 end
