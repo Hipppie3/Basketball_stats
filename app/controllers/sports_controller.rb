@@ -33,10 +33,10 @@ class SportsController < ApplicationController
     head :no_content
   end
 
-  def sport_media_videos
+def sport_media_videos
     @sport = Sport.find(params[:sport_id])
     @sport_media_videos = @sport.sport_media_videos
-    render json: @sport_media_videos, status: :ok
+    render json: @sport, include: :sport_media_videos, status: :ok
   end
 
   private
