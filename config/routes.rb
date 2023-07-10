@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
   resources :sports do
-    resources :sport_media_videos, only: [:index, :create, :update, :destroy]
+    resources :sport_media_videos
   end
 
   get 'cors-test', to: 'test#cors_test'

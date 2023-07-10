@@ -6,6 +6,11 @@ class SportMediaVideosController < ApplicationController
     render json: @videos
   end
 
+  def show
+  @sport = Sport.includes(:sport_media_videos).find(params[:id])
+  render json: @sport, include: :sport_media_videos
+end
+
   def create
     @video = @sport.media_videos.build(video_params)
     if @video.save
