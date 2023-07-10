@@ -1,7 +1,7 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
 
-    origins 'https://wondrous-speculoos-749189.netlify.app', 'http://localhost:5173/'
+    origins 'https://wondrous-speculoos-749189.netlify.app', 
     # Specify the domain that is allowed to access your API
 
     resource '/players/*',
