@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_09_022047) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_10_233129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_022047) do
     t.string "first_name"
     t.string "last_name"
     t.string "sport"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sport_media_videos", force: :cascade do |t|
+    t.bigint "sport_id"
+    t.string "url"
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sport_id"], name: "index_sport_media_videos_on_sport_id"
+  end
+
+  create_table "sports", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -91,6 +106,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_09_022047) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "sport_media_videos", "sports"
   add_foreign_key "statistics", "players"
   add_foreign_key "videos", "players"
 end
