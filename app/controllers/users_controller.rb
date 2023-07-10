@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :require_login, only: [:me]
+  before_action :require_login, only: [:me]
 
   def new
     user = User.new
@@ -15,21 +15,19 @@ class UsersController < ApplicationController
     end
   end
 
-    def me
+  def me
     if current_user
       render json: current_user, status: :ok
     else
       render json: { error: 'Not authenticated' }, status: :unauthorized
     end
   end
-end
 
   private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-
 
   def require_login
     unless current_user
