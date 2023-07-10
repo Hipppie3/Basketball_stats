@@ -1,4 +1,6 @@
 class PlayersController < ApplicationController
+    before_action :authorize_admin, only: [:create, :destroy, :upload_image]
+
   def index
     players = Player.all
 players_data = players.map do |player|
@@ -66,6 +68,12 @@ end
 
   private
 
+    def authorize_admin
+    unless current_user&.admin?
+      redirect_to root_path, alert: 'You are not authorized to perform this action.'
+    end
+  end
+  
   def player_params
     params.require(:player).permit(:first_name, :last_name, :image, videos_attributes: [:id, :url, :title], statistics_attributes: [:id, :game_date, :matchup, :w_l, :ppg, :rbg, :apg, :spg, :bpg, :fgm, :fga, :fg_percentage, :two_pm, :two_pa, :three_pm, :three_pa, :oreb, :dreb, :reb, :ast, :stl, :blk, :to, :pts])
   end
