@@ -16,5 +16,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       headers: :any,
       methods: [:get, :post, :delete, :options, :head], # Add any other methods needed for the '/sessions' path
       credentials: true
+      resource '/user',
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head],
+      credentials: true
   end
 end
