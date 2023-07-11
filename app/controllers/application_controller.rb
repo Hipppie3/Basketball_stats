@@ -9,10 +9,12 @@ class ApplicationController < ActionController::API
     private
 
 def authorize
+  Rails.logger.debug "Authorizing session with user_id: #{session[:user_id]}"
   unless session.include?(:user_id) && !(params[:controller] == 'sessions' && params[:action] == 'destroy')
     render json: { error: "Not authorized" }, status: :unauthorized
   end
 end
+
 
 
   
