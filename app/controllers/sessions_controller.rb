@@ -12,11 +12,9 @@ class SessionsController < ApplicationController
 end
 
 
-def destroy
-  Rails.logger.debug "Destroying session with user_id: #{session[:user_id]}"
-  session.delete(:user_id)
+ def destroy
+  session.delete :user_id 
   head :no_content
-end
-
+ end
 
 end
