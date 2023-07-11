@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+      get '/me', to: 'users#me'
 
   resources :users, only: [:index, :create, :update, :show] do
     collection do
       get :index
     end
-    get '/me', to: 'users#me'
   end
 
   resources :players do
