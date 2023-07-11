@@ -1,4 +1,5 @@
 class StatisticsController < ApplicationController
+  skip_before_action :authorize, only: [:index, :show, :update, :create, :destroy]
   def index
     statistics = player.statistics
     render json: statistics
