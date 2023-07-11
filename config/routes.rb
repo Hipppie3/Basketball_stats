@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
+  resources :users, only: [:index, :create]
+
+
+
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :users, only: [:index, :create, :update, :show] do
-    collection do
-      get :index
-    end
+
     get '/me', to: 'users#me'
-  end
+
 
   resources :players do
     resources :statistics
