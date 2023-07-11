@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resource :user, only: [:create, :update, :show] do
+  resources :users, only: [:index, :create, :update, :show] do
     collection do
       get :index
     end
