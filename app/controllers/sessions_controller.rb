@@ -13,7 +13,9 @@ end
 
 
  def destroy
-  session.delete :user_id 
+  session_id = session[:user_id]
+  session.delete(:user_id)
+  puts "Session ID: #{session_id}"
   head :no_content
  end
 
