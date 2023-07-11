@@ -8,12 +8,12 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
 
-    resource '/login/*',
+    resource '/login',
       headers: :any,
       methods: [:post, :options],
       credentials: true
 
-    resource '/logout/*',
+    resource '/logout',
       headers: :any,
       methods: [:delete, :options],
       credentials: true
