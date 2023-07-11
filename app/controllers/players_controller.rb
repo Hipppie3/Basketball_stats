@@ -1,4 +1,6 @@
 class PlayersController < ApplicationController
+   skip_before_action :authorize, only: [:index, :create, :show, :upload_image, :destory]
+   
   def index
     players = Player.all
 players_data = players.map do |player|
