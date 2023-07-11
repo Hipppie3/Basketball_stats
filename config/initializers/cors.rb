@@ -1,6 +1,5 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-
     origins 'https://wondrous-speculoos-749189.netlify.app'
     # Specify the domain that is allowed to access your API
 
@@ -8,15 +7,23 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
-    resource '/sessions/*',
+
+    resource '/login',
       headers: :any,
-      methods: [:get, :post, :delete, :options, :head], # Add any other methods needed for the '/sessions' path
+      methods: [:post, :options],
       credentials: true
-      resource '/sports/*',
+
+    resource '/logout',
       headers: :any,
-      methods: [:get, :post, :delete, :options, :head], # Add any other methods needed for the '/sessions' path
+      methods: [:delete, :options],
       credentials: true
-      resource '/users/*',
+
+    resource '/sports/*',
+      headers: :any,
+      methods: [:get, :post, :delete, :options, :head],
+      credentials: true
+
+    resource '/users/*',
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
