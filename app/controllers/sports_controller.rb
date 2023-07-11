@@ -1,8 +1,8 @@
 class SportsController < ApplicationController
-  def index
-    sports = Sport.all
-    render json: sports
-  end
+def index
+  sports = Sport.includes(:sport_media_videos)
+  render json: sports, include: :sport_media_videos
+end
 
   def show
     sport = Sport.find(params[:id])
