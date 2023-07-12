@@ -8,6 +8,7 @@ players_data = players.map do |player|
     id: player.id,
     first_name: player.first_name,
     last_name: player.last_name,
+    sport: player.sport,
     image_url: player.image.attached? ? url_for(player.image) : nil
   }
 end
