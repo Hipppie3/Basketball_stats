@@ -11,31 +11,8 @@ module BasketballStats
   # Enable CORS
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'https://wondrous-speculoos-749189.netlify.app' # Update with the appropriate origin or '*' to allow all origins
-            resource '/players/*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head],
-      credentials: true
-
-    resource '/login',
-      headers: :any,
-      methods: [:post, :options],
-      credentials: true
-
-    resource '/logout',
-      headers: :any,
-      methods: [:delete, :options],
-      credentials: true
-
-    resource '/sports/*',
-      headers: :any,
-      methods: [:get, :post, :delete, :options, :head],
-      credentials: true
-
-    resource '/users/*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head],
-      credentials: true
+        origins '*' # Update with the appropriate origin or '*' to allow all origins
+        resource '*', headers: :any, methods: [:get, :post, :options] # Adjust the allowed methods as per your requirements
       end
     end
 
