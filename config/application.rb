@@ -11,8 +11,31 @@ module BasketballStats
   # Enable CORS
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*' # Update with the appropriate origin or '*' to allow all origins
-        resource '*', headers: :any, methods: [:get, :post, :options] # Adjust the allowed methods as per your requirements
+        origins 'https://wondrous-speculoos-749189.netlify.app' # Update with the appropriate origin or '*' to allow all origins
+            resource '/players/*',
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head],
+      credentials: true
+
+    resource '/login',
+      headers: :any,
+      methods: [:post, :options],
+      credentials: true
+
+    resource '/logout',
+      headers: :any,
+      methods: [:delete, :options],
+      credentials: true
+
+    resource '/sports/*',
+      headers: :any,
+      methods: [:get, :post, :delete, :options, :head],
+      credentials: true
+
+    resource '/users/*',
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head],
+      credentials: true
       end
     end
 
@@ -20,7 +43,7 @@ module BasketballStats
     # Adding back cookies and session middleware
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
-    config.api_only = false
+
     # Use SameSite=Strict for all cookies to help protect against CSRF
     config.action_dispatch.cookies_same_site_protection = :strict
 
