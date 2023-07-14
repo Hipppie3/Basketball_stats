@@ -33,6 +33,8 @@
 #Ignore .env file.
 .env
 
+/config/initalizers/storage.yml
+
 #Ignore db/seed file.
 db/seeds.rb
 
