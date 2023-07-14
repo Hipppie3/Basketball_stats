@@ -1,5 +1,5 @@
 class PlayersController < ApplicationController
-   skip_before_action :authorize, only: [:index, :create, :show, :upload_image, :destory]
+   skip_before_action :authorize, only: [:index, :create, :show, :upload_image, :destroy]
    
   def index
     players = Player.all
