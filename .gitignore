@@ -33,7 +33,7 @@
 #Ignore .env file.
 .env
 
-config/storage.yml
+# config/storage.yml
 
 #Ignore db/seed file.
 db/seeds.rb
