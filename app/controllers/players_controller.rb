@@ -1,17 +1,18 @@
 class PlayersController < ApplicationController
-  skip_before_action :authorize, only: [:index, :create, :show, :upload_image, :destroy]
-
+   skip_before_action :authorize, only: [:index, :create, :show, :upload_image, :destory]
+   
   def index
     players = Player.all
-    players_data = players.map do |player|
-      {
-        id: player.id,
-        first_name: player.first_name,
-        last_name: player.last_name,
-        sport: player.sport,
-        image_url: player.image.attached? ? url_for(player.image) : nil
-      }
-    end
+players_data = players.map do |player|
+  {
+    id: player.id,
+    first_name: player.first_name,
+    last_name: player.last_name,
+    sport: player.sport,
+    image_url: player.image.attached? ? url_for(player.image) : nil
+  }
+end
+
 
     render json: players_data, status: :ok
   end
@@ -20,7 +21,7 @@ class PlayersController < ApplicationController
     player = Player.find(params[:id])
     statistics = player.statistics
     videos = player.videos
-    image_url = player.image.attached? ? url_for(player.image) : nil
+    image_url = url_for(player.image) if player.image.attached?
 
     render json: { player: player, statistics: statistics, videos: videos, image_url: image_url }, status: :ok
   end
@@ -30,18 +31,12 @@ class PlayersController < ApplicationController
     image = params[:player][:image]
 
     if image.present?
-      # Remove the previous image if needed
-      player.image.purge
-
-      # Upload the image to AWS S3
       player.image.attach(image)
-
       render json: { message: 'Image uploaded successfully' }, status: :ok
     else
       render json: { error: 'No image provided' }, status: :unprocessable_entity
     end
   end
-
 
   def create
     player = Player.new(player_params)
