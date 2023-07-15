@@ -38,18 +38,31 @@ end
     end
   end
 
-  def create
-    player = Player.new(player_params)
-    if params[:player][:image].present?
-      player.image.attach(params[:player][:image])
-    end
+def create
+  player = Player.new(player_params)
 
-    if player.save
-      render json: player, status: :created
-    else
-      render json: player.errors, status: :unprocessable_entity
-    end
+  # Retrieve the sport ID from the request parameters
+  sport_id = params[:player][:sport_id]
+
+  if sport_id.present?
+    # Find the sport by its ID
+    sport = Sport.find(sport_id)
+
+    # Assign the sport to the player
+    player.sport = sport
   end
+
+  if params[:player][:image].present?
+    player.image.attach(params[:player][:image])
+  end
+
+  if player.save
+    render json: player, status: :created
+  else
+    render json: player.errors, status: :unprocessable_entity
+  end
+end
+
 
   def update
     player = Player.find(params[:id])
