@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/me', to: 'users#me'
 
-  resources :users, only: [:index, :create] 
+  resources :users, only: [:index, :create, :update, :destroy] do
+    get :me, on: :collection
+  end
 
   resources :players do
     resources :statistics
