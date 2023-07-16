@@ -18,8 +18,6 @@ def index
   render json: players_data, status: :ok
 end
 
-    render json: players_data, status: :ok
-  end
 
   def show
     player = Player.find(params[:id])
