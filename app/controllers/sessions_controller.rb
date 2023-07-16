@@ -5,6 +5,8 @@ def create
   user = User.find_by(username: params[:username])
   if user&.authenticate(params[:password])
     session[:user_id] = user.id
+     # Add this line to show the session in the log
+      Rails.logger.info("Session: #{session.to_hash}")
     render json: user, status: :ok
   else
     render json: { error: 'Incorrect username or password, please try again' }, status: :unauthorized
