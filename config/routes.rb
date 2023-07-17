@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+
+  resources :users, only: [:index, :create] 
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/me', to: 'users#me'
 
-  resources :users, only: [:index, :create] 
 
   resources :players do
     resources :statistics
