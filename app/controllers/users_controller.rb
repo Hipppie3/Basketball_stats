@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize, only: [:index, :create]
-  
-def index
-  users = User.all
-  render json: users
-end
+  skip_before_action :authorize, only: [:index, :create, :me]
+
 
   def create
       user = User.create!(user_params)
@@ -14,19 +10,21 @@ end
 
 
   def me
-    user = User.find_by(session[:user_id])
-    if user
+      user = User.find(session[:user_id])
       render json: user
-    else
-      render json: { error: 'User not found' }, status: :not_found
-    end
   end
+
+    
+def index
+  users = User.all
+  render json: users
+end
 
   # Other controller actions...
 
   private
 
   def user_params
-    params.require(:user).permit(:username, :name, :password, :password_confirmation, :email)
+    params..permit(:id, :username, :name, :password, :password_confirmation, :email)
   end
 end
