@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-resources :users, only: [:index, :create, :update]
+resources :users, only: [:index, :create, :update, :show]
 
 post "/login", to: "sessions#create"
 delete "/logout", to: "sessions#destroy"
