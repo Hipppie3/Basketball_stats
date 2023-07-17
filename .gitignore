@@ -37,6 +37,3 @@ config/storage.yml
 
 #Ignore db/seed file.
 db/seeds.rb
-
-#Ignore config/initializers/session_store
-config/initializers/session_store.rb
