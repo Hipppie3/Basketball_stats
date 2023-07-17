@@ -17,14 +17,16 @@ end
   end
 
 
-  def me
-    user = User.find_by(id: session[:user_id])
-    if user
-      render json: user
-    else
-      render json: { error: 'User not found' }, status: :not_found
-    end
+def me
+  user = User.find_by(id: session[:user_id])
+  if user
+    session[:user_id] = user.id  # Set the session[:user_id] if the user is found
+    render json: user
+  else
+    render json: { error: 'User not found' }, status: :not_found
   end
+end
+
 
   # Other controller actions...
 
