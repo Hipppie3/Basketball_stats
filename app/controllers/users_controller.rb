@@ -16,12 +16,7 @@ end
     end
   end
 
-  def show
-      user = User.find(session[:user_id])
-      render json: user
-   end
-  
-   def me
+   def show
     user = User.find_by(id: session[:user_id])
     if user
       render json: user
