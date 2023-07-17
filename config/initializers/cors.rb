@@ -18,9 +18,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       methods: [:delete, :options],
       credentials: true
 
-    resource '/me', # Add this line
+    resource '/show', # Add this line
       headers: :any,
-      methods: [:get, :options],
+      methods: [:get, :show, :options],
       credentials: true
 
     resource '/sports/*',
@@ -32,5 +32,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
+
+
   end
 end
