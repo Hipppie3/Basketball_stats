@@ -18,9 +18,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       methods: [:delete, :options],
       credentials: true
 
-    resource '/show', # Add this line
+    resource '/me', # Add this line
       headers: :any,
-      methods: [:get, :show, :options],
+      methods: [:get, :me, :options],
       credentials: true
 
     resource '/sports/*',
