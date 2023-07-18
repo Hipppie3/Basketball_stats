@@ -24,7 +24,6 @@ end
     statistics = player.statistics
     videos = player.videos
     image_url = url_for(player.image) if player.image.attached?
-    puts test_value
     render json: { player: player, statistics: statistics, videos: videos, image_url: image_url }, status: :ok
   end
 
