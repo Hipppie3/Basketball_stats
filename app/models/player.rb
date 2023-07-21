@@ -5,4 +5,5 @@ class Player < ApplicationRecord
   accepts_nested_attributes_for :videos
   has_one_attached :image
   belongs_to :sport
+  belongs_to :team
 end
