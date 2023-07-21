@@ -1,6 +1,4 @@
 class VideosController < ApplicationController
-  skip_before_action :authorize, only: [:index, :create, :destroy]
-  before_action :set_player
 
   def create
     @video = @player.videos.build(video_params)

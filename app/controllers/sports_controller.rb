@@ -1,5 +1,5 @@
 class SportsController < ApplicationController
-skip_before_action :authorize, only: [:index, :create, :show, :destroy]
+
 
  def index
     sports = Sport.includes(:sport_media_videos, :players) # Include players association
