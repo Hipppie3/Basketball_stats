@@ -16,9 +16,9 @@ Rails.application.routes.draw do
     resources :sport_media_videos
   end
 
-  resources :games do
-    resources :teams
-  end
+  resources :games 
+  resources :teams
+
 
   get 'cors-test', to: 'test#cors_test'
 end
