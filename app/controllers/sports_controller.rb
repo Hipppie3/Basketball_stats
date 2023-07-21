@@ -1,16 +1,45 @@
 class SportsController < ApplicationController
 skip_before_action :authorize, only: [:index, :create, :show, :destroy]
 
-def index
-  sports = Sport.includes(:sport_media_videos)
-  render json: sports, include: :sport_media_videos
-end
+ def index
+    sports = Sport.includes(:sport_media_videos, :players) # Include players association
+    sports_data = sports.map do |sport|
+      {
+        id: sport.id,
+        name: sport.name,
+        sport_media_videos: sport.sport_media_videos,
+        players: sport.players.map do |player| # Include player details
+          {
+            id: player.id,
+            first_name: player.first_name,
+            last_name: player.last_name,
+            image_url: player.image.attached? ? url_for(player.image) : nil,
+            statistics: player.statistics,
+            videos: player.videos
+          }
+        end
+      }
+    end
 
-  def show
+    render json: sports_data, status: :ok
+  end
+
+ def show
     sport = Sport.find(params[:id])
     sport_media_videos = sport.sport_media_videos
-    render json: { sport: sport, sport_media_videos: sport_media_videos }, status: :ok
+    players = Player.where(sport_id: sport.id) # Get all players belonging to this sport
+    players_data = players.map do |player|
+      {
+        id: player.id,
+        first_name: player.first_name,
+        last_name: player.last_name,
+        image_url: player.image.attached? ? url_for(player.image) : nil,
+        statistics: player.statistics,
+        videos: player.videos
+      }
+    end
 
+    render json: { sport: sport, sport_media_videos: sport_media_videos, players: players_data }, status: :ok
   end
 
   def create
