@@ -16,22 +16,25 @@ class TeamsController < ApplicationController
     render json: teams_data, status: :ok
   end
 
-  def show
+def show
+  begin
     team = Team.find(params[:id])
-    players = team.players.includes(:statistics, :videos)
-
-    team_data = {
-      id: team.id,
-      name: team.name,
-      sport: {
-        id: team.sport.id,
-        name: team.sport.name
-      },
-      players: players_data_with_statistics(players)
-    }
-
-    render json: team_data, status: :ok
+  rescue ActiveRecord::RecordNotFound
+    return render json: { error: "Team not found" }, status: :not_found
   end
+
+  players = team.players.includes(:statistics, :videos)
+
+  team_data = {
+    id: team.id,
+    name: team.name,
+    sport: team.sport&.slice(:id, :name), # Use safe navigation to access sport attributes
+    players: players_data_with_statistics(players)
+  }
+
+  render json: team_data, status: :ok
+end
+
 
   def create
     @team = Team.new(team_params)
