@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
 
   def show
     team = Team.find(params[:id])
-    render json: team
+    render json: team.to_json(include: :players)
   end
 
   def new
@@ -20,6 +20,12 @@ class TeamsController < ApplicationController
     else
       render :new
     end
+  end
+
+    def destroy
+    team = Team.find(params[:id])
+    team.destroy
+    head :no_content
   end
 
   private
