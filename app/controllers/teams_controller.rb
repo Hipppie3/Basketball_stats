@@ -1,17 +1,14 @@
 class TeamsController < ApplicationController
   # ...
 
-  def index
+ def index
     teams = Team.all.includes(:sport, players: [:statistics, :videos])
 
     teams_data = teams.map do |team|
       {
         id: team.id,
         name: team.name,
-        sport: {
-          id: team.sport.id,
-          name: team.sport.name
-        },
+        sport: team.sport.present? ? { id: team.sport.id, name: team.sport.name } : nil,
         players: players_data_with_statistics(team.players)
       }
     end
