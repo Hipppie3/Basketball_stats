@@ -30,28 +30,27 @@ class SportsController < ApplicationController
     render json: sports_data, status: :ok
   end
 
+  def show
+    sport = Sport.includes(teams: [:players, :sport_media_videos]).find(params[:id])
+    teams_data = sport.teams.map do |team|
+      {
+        id: team.id,
+        name: team.name,
+        players: team.players.map do |player|
+          {
+            id: player.id,
+            first_name: player.first_name,
+            last_name: player.last_name,
+            image_url: player.image.attached? ? url_for(player.image) : nil,
+            statistics: player.statistics,
+            videos: player.videos
+          }
+        end
+      }
+    end
 
-def show
-  sport = Sport.find(params[:id])
-  teams_data = sport.teams.map do |team|
-    {
-      id: team.id,
-      name: team.name,
-      players: team.players.map do |player|
-        {
-          id: player.id,
-          first_name: player.first_name,
-          last_name: player.last_name,
-          image_url: player.image.attached? ? url_for(player.image) : nil,
-          statistics: player.statistics,
-          videos: player.videos
-        }
-      end
-    }
+    render json: { sport: sport, sport_media_videos: sport.sport_media_videos, teams: teams_data }, status: :ok
   end
-
-  render json: { sport: sport, sport_media_videos: sport.sport_media_videos, teams: teams_data }, status: :ok
-end
 
 
 
