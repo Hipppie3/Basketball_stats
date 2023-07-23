@@ -63,20 +63,23 @@ class TeamsController < ApplicationController
 
   private
 
-  def players_data_with_statistics(players)
-    players.map do |player|
-      {
-        id: player.id,
-        first_name: player.first_name,
-        last_name: player.last_name,
-        sport_id: player.sport_id,
-        team_id: player.team_id,
-        image_url: player.image.attached? ? url_for(player.image) : nil,
-        statistics: player.statistics,
-        videos: player.videos
-      }
-    end
+private
+
+def players_data_with_statistics(players)
+  players.map do |player|
+    {
+      id: player.id,
+      first_name: player.first_name,
+      last_name: player.last_name,
+      sport_id: player.sport_id,
+      team_id: player.team_id,
+      image_url: player.image.attached? ? url_for(player.image) : nil,
+      statistics: player.statistics || {}, # Use an empty hash if statistics are nil
+      videos: player.videos || [] # Use an empty array if videos are nil
+    }
   end
+end
+
 
   def team_params
     params.require(:team).permit(:name, :sport_id)
