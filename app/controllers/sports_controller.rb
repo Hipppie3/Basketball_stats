@@ -30,6 +30,7 @@ class SportsController < ApplicationController
     render json: sports_data, status: :ok
   end
 
+
   def show
     sport = Sport.find(params[:id])
     sport_media_videos = sport.sport_media_videos
