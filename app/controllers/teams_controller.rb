@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  
+
   def index
     teams = Team.all.includes(players: [:statistics, :videos])
 
@@ -10,6 +10,9 @@ class TeamsController < ApplicationController
         players: players_data_with_statistics(team.players)
       }
     end
+
+    render json: teams_data, status: :ok
+  end
 
 
   def show
