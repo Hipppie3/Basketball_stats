@@ -3,13 +3,7 @@ class GamesController < ApplicationController
     games = Game.all
     render json: games, status: :ok
   end
-
-    def players
-    game = Game.find(params[:id])
-    players = game.players
-
-    render json: players, status: :ok
-  end
+  
 
   def show
     @game = Game.find_by(id: params[:id])

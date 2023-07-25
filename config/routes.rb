@@ -25,7 +25,6 @@ Rails.application.routes.draw do
   end
 
   resources :teams
-  put '/players/:player_id/statistics/:id', to: 'statistics#update'
 
 
   get 'cors-test', to: 'test#cors_test'

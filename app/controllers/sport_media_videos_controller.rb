@@ -1,5 +1,5 @@
 class SportMediaVideosController < ApplicationController
-
+before_action :set_sport
 
   def index
     sport_media_videos = @sport.sport_media_videos
