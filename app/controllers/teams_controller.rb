@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  # ...
+
 
   def index
     teams = Team.all.includes(:sport, players: [:statistics, :videos])
