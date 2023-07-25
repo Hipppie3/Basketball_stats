@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_23_025837) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_24_230910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_23_025837) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "game_players", force: :cascade do |t|
+    t.bigint "game_id"
+    t.bigint "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_players_on_game_id"
+    t.index ["player_id"], name: "index_game_players_on_player_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "name"
     t.date "date"
@@ -52,10 +61,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_23_025837) do
   create_table "players", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "sport_id"
     t.bigint "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["sport_id"], name: "index_players_on_sport_id"
     t.index ["team_id"], name: "index_players_on_team_id"
   end
@@ -76,8 +85,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_23_025837) do
   end
 
   create_table "statistics", force: :cascade do |t|
-    t.date "game_date"
-    t.string "matchup"
     t.string "w_l"
     t.decimal "ppg"
     t.decimal "rbg"
@@ -107,9 +114,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_23_025837) do
 
   create_table "teams", force: :cascade do |t|
     t.string "name"
+    t.bigint "sport_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "sport_id", null: false
     t.index ["sport_id"], name: "index_teams_on_sport_id"
   end
 
@@ -126,7 +133,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_23_025837) do
   create_table "videos", force: :cascade do |t|
     t.string "url"
     t.string "title"
-    t.bigint "player_id", null: false
+    t.bigint "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_videos_on_player_id"
@@ -134,6 +141,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_23_025837) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "game_players", "games"
+  add_foreign_key "game_players", "players"
   add_foreign_key "players", "sports"
   add_foreign_key "players", "teams"
   add_foreign_key "sport_media_videos", "sports"

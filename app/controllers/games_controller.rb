@@ -4,7 +4,10 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
+    @game = Game.find_by(id: params[:id])
+    if @game.nil?
+      redirect_to games_path, alert: 'Game not found.'
+    end
   end
 
   def new

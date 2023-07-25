@@ -1,65 +1,98 @@
 class PlayersController < ApplicationController
 
-  def index
-    players = Player.includes(:statistics, :videos)
-    players_data = players.map do |player|
-      {
-        id: player.id,
-        first_name: player.first_name,
-        last_name: player.last_name,
-        sport_id: player.sport_id, # Add sport_id to the response
-        team_id: player.team_id, 
-        image_url: player.image.attached? ? url_for(player.image) : nil,
-        statistics: player.statistics,
-        videos: player.videos
-      }
-    end
-
-    render json: players_data, status: :ok
+def index
+  players = Player.includes(:statistics, :videos, :sport) # Include the sport association
+  players_data = players.map do |player|
+    {
+      id: player.id,
+      first_name: player.first_name,
+      last_name: player.last_name,
+      sport: {
+        id: player.sport.id,
+        name: player.sport.name # Include other attributes of Sport as needed
+      },
+      team_id: player.team_id,
+      image_url: player.image.attached? ? url_for(player.image) : nil,
+      statistics: player.statistics,
+      videos: player.videos
+    }
   end
 
-  def show
-    player = Player.find(params[:id])
-    statistics = player.statistics
-    videos = player.videos
-    image_url = url_for(player.image) if player.image.attached?
-    render json: { player: player, statistics: statistics, videos: videos, image_url: image_url }, status: :ok
+  render json: players_data, status: :ok
+end
+
+
+def show
+  player = Player.includes(:statistics, :videos, :sport).find(params[:id]) # Include the sport association
+  player_data = {
+    id: player.id,
+    first_name: player.first_name,
+    last_name: player.last_name,
+    sport: {
+      id: player.sport.id,
+      name: player.sport.name # Include other attributes of Sport as needed
+    },
+    team_id: player.team_id,
+    image_url: player.image.attached? ? url_for(player.image) : nil,
+    statistics: player.statistics,
+    videos: player.videos
+  }
+
+  render json: player_data, status: :ok
+end
+
+
+def create
+  player = Player.new(player_params)
+
+  if params[:player][:image].present?
+    player.image.attach(params[:player][:image])
   end
 
-  def upload_image
-    player = Player.find(params[:id])
-    image = params[:player][:image]
-
-    if image.present?
-      player.image.attach(image)
-      render json: { message: 'Image uploaded successfully' }, status: :ok
-    else
-      render json: { error: 'No image provided' }, status: :unprocessable_entity
-    end
+  if player.save
+    player_data = {
+      id: player.id,
+      first_name: player.first_name,
+      last_name: player.last_name,
+      sport: {
+        id: player.sport.id,
+        name: player.sport.name # Include other attributes of Sport as needed
+      },
+      team_id: player.team_id,
+      image_url: player.image.attached? ? url_for(player.image) : nil,
+      statistics: player.statistics,
+      videos: player.videos
+    }
+    render json: player_data, status: :created
+  else
+    render json: player.errors, status: :unprocessable_entity
   end
+end
 
-  def create
-    player = Player.new(player_params)
-    if params[:player][:image].present?
-      player.image.attach(params[:player][:image])
-    end
 
-    if player.save
-      render json: player, status: :created
-    else
-      render json: player.errors, status: :unprocessable_entity
-    end
+def update
+  player = Player.find(params[:id])
+
+  if player.update(player_params)
+    player_data = {
+      id: player.id,
+      first_name: player.first_name,
+      last_name: player.last_name,
+      sport: {
+        id: player.sport.id,
+        name: player.sport.name # Include other attributes of Sport as needed
+      },
+      team_id: player.team_id,
+      image_url: player.image.attached? ? url_for(player.image) : nil,
+      statistics: player.statistics,
+      videos: player.videos
+    }
+    render json: player_data, status: :ok
+  else
+    render json: player.errors, status: :unprocessable_entity
   end
+end
 
-  def update
-    player = Player.find(params[:id])
-
-    if player.update(player_params)
-      render json: player, status: :ok
-    else
-      render json: player.errors, status: :unprocessable_entity
-    end
-  end
 
   def destroy
     player = Player.find_by!(id: params[:id])
@@ -70,6 +103,6 @@ class PlayersController < ApplicationController
   private
 
   def player_params
-    params.require(:player).permit(:first_name, :last_name, :image, :sport_id, :team_id, videos_attributes: [:id, :url, :title], statistics_attributes: [:id, :game_date, :matchup, :w_l, :ppg, :rbg, :apg, :spg, :bpg, :fgm, :fga, :fg_percentage, :two_pm, :two_pa, :three_pm, :three_pa, :oreb, :dreb, :reb, :ast, :stl, :blk, :to, :pts])
+    params.require(:player).permit(:first_name, :last_name, :image, :sport_id, :team_id, videos_attributes: [:id, :url, :title], statistics_attributes: [:id, :w_l, :ppg, :rbg, :apg, :spg, :bpg, :fgm, :fga, :fg_percentage, :two_pm, :two_pa, :three_pm, :three_pa, :oreb, :dreb, :reb, :ast, :stl, :blk, :to, :pts])
   end
 end
