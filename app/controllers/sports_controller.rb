@@ -2,7 +2,7 @@ class SportsController < ApplicationController
   # ...
 
   def index
-    sports = Sport.includes(teams: [:players, :sport_media_videos]) # Include teams and players associations
+    sports = Sport.includes(:teams, :players, :sport_media_videos) # Include teams and players associations
     sports_data = sports.map do |sport|
       {
         id: sport.id,
@@ -25,7 +25,7 @@ class SportsController < ApplicationController
   end
 
   def show
-    sport = Sport.includes(teams: [:players, :sport_media_videos]).find(params[:id])
+    sport = Sport.includes(:teams, :players, :sport_media_videos).find(params[:id])
     players_data = sport.players.map do |player|
       {
         id: player.id,

@@ -1,12 +1,15 @@
 class GamesController < ApplicationController
   def index
-    @games = Game.all
+    games = Game.all
+    render json: games, status: :ok
   end
 
   def show
     @game = Game.find_by(id: params[:id])
     if @game.nil?
-      redirect_to games_path, alert: 'Game not found.'
+      render json: { error: 'Game not found' }, status: :not_found
+    else
+      render json: @game, status: :ok
     end
   end
 
@@ -17,9 +20,9 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
-      redirect_to @game, notice: 'Game was successfully created.'
+      render json: @game, status: :created
     else
-      render :new
+      render json: @game.errors, status: :unprocessable_entity
     end
   end
 
