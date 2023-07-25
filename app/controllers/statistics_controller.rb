@@ -39,9 +39,10 @@ class StatisticsController < ApplicationController
     head :no_content
   end
 
-  private
+private
 
-  def statistic_params
-    params.require(:statistic).permit(:game_date, :matchup, :w_l, :ppg, :rbg, :apg, :spg, :bpg, :fgm, :fga, :fg_percentage, :two_pm, :two_pa, :three_pm, :three_pa, :oreb, :dreb, :reb, :ast, :stl, :blk, :to, :pts)
-  end
+def statistic_params
+  params.require(:statistic).permit(:game_date, :w_l, :fgm, :fga, :fg_percentage, :two_pm, :two_pa, :three_pm, :three_pa, :oreb, :dreb, :reb, :ast, :stl, :blk, :to, :pts)
+end
+
 end
