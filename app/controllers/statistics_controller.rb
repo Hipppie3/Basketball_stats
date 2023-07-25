@@ -11,16 +11,26 @@ class StatisticsController < ApplicationController
     render json: statistic
   end
 
-  def update
-    player = Player.find(params[:player_id])
-    statistic = player.statistics.find(params[:id])
+def update
+  player = Player.find(params[:player_id])
+  statistic = player.statistics.find(params[:id])
 
-    if statistic.update(statistic_params)
-      render json: statistic, status: :ok
-    else
-      render json: statistic.errors, status: :unprocessable_entity
-    end
+  # Find the corresponding game for the statistic based on the game_id in the statistic
+  game = Game.find(statistic.id)
+
+  if game.update(game_params)
+    render json: statistic, status: :ok
+  else
+    render json: game.errors, status: :unprocessable_entity
   end
+end
+
+private
+
+def game_params
+  params.require(:statistic).permit(:game_date)
+end
+
 
   def create
     player = Player.find(params[:player_id])
