@@ -100,16 +100,17 @@ def update
   end
 end
 
-  def upload_image
-    player = Player.find(params[:id])
+ def upload_image
+  player = Player.find(params[:id])
 
-    if params[:image].present?
-      player.image.attach(params[:image])
-      render json: { message: "Image uploaded successfully!" }, status: :ok
-    else
-      render json: { error: "Image file missing or invalid." }, status: :unprocessable_entity
-    end
+  if params[:player][:image].present? # Updated line
+    player.image.attach(params[:player][:image]) # Updated line
+    render json: { message: "Image uploaded successfully!" }, status: :ok
+  else
+    render json: { error: "Image file missing or invalid." }, status: :unprocessable_entity
   end
+end
+
 
 
 
