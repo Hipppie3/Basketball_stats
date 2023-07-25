@@ -1,32 +1,32 @@
 class PlayersController < ApplicationController
 
-  def index
-    players = Player.includes(:games, :statistics, :videos, :sport) # Include the games association
-    players_data = players.map do |player|
-      {
-        id: player.id,
-        first_name: player.first_name,
-        last_name: player.last_name,
-        sport: {
-          id: player.sport.id,
-          name: player.sport.name # Include other attributes of Sport as needed
-        },
-        team_id: player.team_id,
-        image_url: player.image.attached? ? url_for(player.image) : nil,
-        statistics: player.statistics,
-        videos: player.videos,
-        games: player.games.map do |game|
-          {
-            id: game.id,
-            date: game.formatted_date,
-            # Include other game attributes as needed
-          }
-        end
-      }
-    end
+def index
+  players = Player.includes(:games, :statistics, :videos, :sport) # Include the games association
+  players_data = players.map do |player|
+    sport_data = player.sport ? { id: player.sport.id, name: player.sport.name } : nil
 
-    render json: players_data, status: :ok
+    {
+      id: player.id,
+      first_name: player.first_name,
+      last_name: player.last_name,
+      sport: sport_data,
+      team_id: player.team_id,
+      image_url: player.image.attached? ? url_for(player.image) : nil,
+      statistics: player.statistics,
+      videos: player.videos,
+      games: player.games.map do |game|
+        {
+          id: game.id,
+          date: game.formatted_date,
+          # Include other game attributes as needed
+        }
+      end
+    }
   end
+
+  render json: players_data, status: :ok
+end
+
 
 
   def show
