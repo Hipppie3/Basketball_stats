@@ -55,7 +55,7 @@ class PlayersController < ApplicationController
 
     render json: player_data, status: :ok
   end
-end
+
 
 def create
   player = Player.new(player_params)
@@ -125,9 +125,6 @@ end
     render json: { error: "Image file missing or invalid." }, status: :unprocessable_entity
   end
 end
-
-
-
 
   def destroy
     player = Player.find_by!(id: params[:id])
