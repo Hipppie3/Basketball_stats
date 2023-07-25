@@ -69,6 +69,13 @@ def create
   end
 end
 
+ def games
+    player = Player.find(params[:id])
+    games = player.games
+
+    render json: games, status: :ok
+  end
+
 
 def update
   player = Player.find(params[:id])

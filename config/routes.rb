@@ -9,14 +9,21 @@ Rails.application.routes.draw do
   resources :players do
     resources :statistics
     resources :videos
-    post 'upload_image', on: :member
+    post 'upload_image', on: :member    
+    get 'games', to: 'games#index', on: :member
+
   end
 
   resources :sports do
     resources :sport_media_videos
   end
 
-  resources :games 
+  resources :games do
+    member do
+      get 'players', to: 'games#players'
+    end
+  end
+
   resources :teams
 
 
