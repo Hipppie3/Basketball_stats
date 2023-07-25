@@ -11,19 +11,21 @@ class StatisticsController < ApplicationController
     render json: statistic
   end
 
-def update
-  player = Player.find(params[:player_id])
-  statistic = player.statistics.find(params[:id])
+  def update
+    player = Player.find(params[:player_id])
+    statistic = player.statistics.find_by(id: params[:id])
 
-  # Find the corresponding game for the statistic based on the game_id in the statistic
-  game = Game.find(statistic.id)
-
-  if game.update(game_params)
-    render json: statistic, status: :ok
-  else
-    render json: game.errors, status: :unprocessable_entity
+    if statistic
+      if statistic.update(statistic_params)
+        render json: statistic, status: :ok
+      else
+        render json: statistic.errors, status: :unprocessable_entity
+      end
+    else
+      render json: { error: "Statistic not found for player #{params[:player_id]} with ID #{params[:id]}" }, status: :not_found
+    end
   end
-end
+
 
 private
 
