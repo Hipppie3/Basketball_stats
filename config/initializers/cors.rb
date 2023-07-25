@@ -33,6 +33,11 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       methods: [:get, :post, :delete, :show, :update, :options, :head],
       credentials: true
 
+    resource '/games/*',
+      headers: :any,
+      methods: [:get, :post, :delete, :show, :update, :options, :head],
+      credentials: true
+      
     resource '/users/*',
       headers: :any,
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
