@@ -6,9 +6,6 @@ class StatisticsController < ApplicationController
     render json: statistics.to_json(include: :game) # Include the game data in the JSON response
   end
 
-    render json: statistics_with_game_date
-  end
-
   def show
     player = Player.find(params[:player_id])
     statistic = player.statistics.find(params[:id])
