@@ -8,7 +8,6 @@ Rails.application.routes.draw do
 
   get 'games/:game_id/players', to: 'players#players_for_game'
   
-  
   resources :players do
     resources :statistics
     resources :videos
@@ -28,7 +27,6 @@ Rails.application.routes.draw do
   end
 
   resources :teams
-
 
   get 'cors-test', to: 'test#cors_test'
 end
