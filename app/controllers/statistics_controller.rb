@@ -7,12 +7,11 @@ class StatisticsController < ApplicationController
   end
 
   def show
-    player = Player.find(params[:player_id])
-    statistic = player.statistics.find(params[:id])
-    game = Game.find(statistic.game_id) # Load the associated game
-    render json: { statistic: statistic, game: game } # Return both the statistic and the game
+    game = Game.find(params[:game_id]) # Find the game by game_id
+    statistic = game.statistics.find(params[:id]) # Find the statistic within that game
+    render json: statistic
   end
-
+  
   def update
     player = Player.find(params[:player_id])
     statistic = player.statistics.find(params[:id])
