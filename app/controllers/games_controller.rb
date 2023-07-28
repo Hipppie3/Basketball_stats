@@ -10,10 +10,10 @@ class GamesController < ApplicationController
     if @game.nil?
       render json: { error: 'Game not found' }, status: :not_found
     else
-      render json: @game, status: :ok
+      render json: @game, include: :statistics, status: :ok
     end
   end
-
+  
   def new
     @game = Game.new
   end
