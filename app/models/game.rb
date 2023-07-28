@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
 has_many :game_players
 has_many :players, through: :game_players
+has_many :statistics
 
 def date=(date_str)
     # Convert the string in "month/day/year" format to a Date object

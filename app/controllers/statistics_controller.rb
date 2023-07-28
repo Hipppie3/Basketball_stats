@@ -1,14 +1,30 @@
 class StatisticsController < ApplicationController
 
   def index
-    statistics = player.statistics
-    render json: statistics
+    player = Player.find(params[:player_id])
+    statistics_with_game_date = player.statistics.map do |statistic|
+      {
+        id: statistic.id,
+        game_date: statistic.game.date, # Access the game date through the statistic's associated game
+        w_l: statistic.w_l,
+        ppg: statistic.ppg,
+        # ... other statistic attributes ...
+      }
+    end
+
+    render json: statistics_with_game_date
   end
 
   def show
     player = Player.find_by!(params[:player_id])
     statistic = player.statistics.find(params[:id])
-    render json: statistic
+      render json: {
+      id: statistic.id,
+      game_date: statistic.game.date, # Access the game date through the statistic's associated game
+      w_l: statistic.w_l,
+      ppg: statistic.ppg,
+      # ... other statistic attributes ...
+    }
   end
 
   def update

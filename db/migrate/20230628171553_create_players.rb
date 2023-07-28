@@ -5,7 +5,7 @@ class CreatePlayers < ActiveRecord::Migration[7.0]
       t.string :last_name
       t.references :sport, null: true, foreign_key: true
       t.references :team, null: true, foreign_key: true
-      
+       
 
       t.timestamps
     end
