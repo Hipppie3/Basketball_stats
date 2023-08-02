@@ -1,4 +1,6 @@
 class StatisticsController < ApplicationController
+skip_before_action :authorize, only: [:index, :show]
+
   def index
     player = Player.find(params[:player_id])
     statistics = player.statistics.includes(:game) # Eager load the associated games

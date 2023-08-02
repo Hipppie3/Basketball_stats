@@ -1,4 +1,5 @@
 class PlayersController < ApplicationController
+  skip_before_action :authorize, only: [:index, :show, :games, :players_for_game]
 
 def index
   players = Player.includes(:games, :statistics, :videos, :sport) # Include the games association
