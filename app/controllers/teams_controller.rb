@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-skip_before_action :authorize, only: [:index, :show]
+# skip_before_action :authorize, only: [:index, :show]
 
   def index
     teams = Team.all.includes(:sport, players: [:statistics, :videos])

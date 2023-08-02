@@ -1,6 +1,6 @@
 class SportMediaVideosController < ApplicationController
 before_action :set_sport
-skip_before_action :authorize, only: [:index, :show]
+# skip_before_action :authorize, only: [:index, :show]
 
   def index
     sport_media_videos = @sport.sport_media_videos
