@@ -126,6 +126,7 @@ end
     render json: { error: "Image file missing or invalid." }, status: :unprocessable_entity
   end
 end
+
 # In your players_controller.rb
 def players_for_game
   game = Game.find(params[:game_id])
@@ -174,10 +175,10 @@ def players_for_game
         }
       end,
       videos: player.videos,
-      games: player.games.map do |game|
+      games: player.games.map do |player_game|
         {
-          id: game.id,
-          date: game.formatted_date,
+          id: player_game.id,
+          date: player_game.formatted_date,
           # Include other game attributes as needed
         }
       end
@@ -186,6 +187,7 @@ def players_for_game
 
   render json: players_data, status: :ok
 end
+
 
 
   def destroy
