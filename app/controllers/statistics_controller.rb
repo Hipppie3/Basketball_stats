@@ -9,7 +9,7 @@ class StatisticsController < ApplicationController
       statistics = Statistic.all
     end
 
-    render json: statistics.to_json(include: :game) # Include the game data in the JSON response
+    render json: statistics.as_json(include: { game: {}, player: { include: :team } }), status: :ok
   end
 
   def show
