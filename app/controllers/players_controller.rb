@@ -129,8 +129,62 @@ end
 # In your players_controller.rb
 def players_for_game
   game = Game.find(params[:game_id])
-  players = game.players.includes(:statistics)
-  render json: players, include: { statistics: {} }
+  players = game.players.includes(:statistics, :games)
+
+  players_data = players.map do |player|
+    {
+      id: player.id,
+      first_name: player.first_name,
+      last_name: player.last_name,
+      sport: {
+        id: player.sport.id,
+        name: player.sport.name # Include other attributes of Sport as needed
+      },
+      team_id: player.team_id,
+      image_url: player.image.attached? ? url_for(player.image) : nil,
+      statistics: player.statistics.map do |statistic|
+        {
+          id: statistic.id,
+          w_l: statistic.w_l,
+          ppg: statistic.ppg,
+          rbg: statistic.rbg,
+          apg: statistic.apg,
+          spg: statistic.spg,
+          bpg: statistic.bpg,
+          fgm: statistic.fgm,
+          fga: statistic.fga,
+          fg_percentage: statistic.fg_percentage,
+          two_pm: statistic.two_pm,
+          two_pa: statistic.two_pa,
+          three_pm: statistic.three_pm,
+          three_pa: statistic.three_pa,
+          oreb: statistic.oreb,
+          dreb: statistic.dreb,
+          reb: statistic.reb,
+          ast: statistic.ast,
+          stl: statistic.stl,
+          blk: statistic.blk,
+          to: statistic.to,
+          pts: statistic.pts,
+          game: {
+            id: game.id,
+            date: game.formatted_date,
+            # Include other game attributes as needed
+          }
+        }
+      end,
+      videos: player.videos,
+      games: player.games.map do |game|
+        {
+          id: game.id,
+          date: game.formatted_date,
+          # Include other game attributes as needed
+        }
+      end
+    }
+  end
+
+  render json: players_data, status: :ok
 end
 
 
