@@ -5,7 +5,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 
     resource '/players/*',
       headers: :any,
-      methods: [:get, :post, :show, :put, :patch, :delete, :options, :head],
+      methods: [:get, :post, :players_for_game, :show, :put, :patch, :delete, :options, :head],
       credentials: true
 
     resource '/login',
@@ -45,7 +45,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 
       resource '/statistics/*',
       headers: :any,
-      methods: [:get, :post, :update, :put, :patch, :delete, :options, :head],
+      methods: [:get, :post, :show, :update, :put, :patch, :delete, :options, :head],
       credentials: true
 
   end
