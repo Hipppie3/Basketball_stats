@@ -126,8 +126,8 @@ end
     render json: { error: "Image file missing or invalid." }, status: :unprocessable_entity
   end
 end
-
 # In your players_controller.rb
+
 def players_for_game
   game = Game.find(params[:game_id])
   players = game.players.includes(:statistics, :games)
@@ -144,6 +144,7 @@ def players_for_game
       team_id: player.team_id,
       image_url: player.image.attached? ? url_for(player.image) : nil,
       statistics: player.statistics.map do |statistic|
+        statistic_game = statistic.game # New variable for the associated game with the statistic
         {
           id: statistic.id,
           w_l: statistic.w_l,
@@ -168,8 +169,8 @@ def players_for_game
           to: statistic.to,
           pts: statistic.pts,
           game: {
-            id: game.id,
-            date: game.formatted_date,
+            id: statistic_game.id, # Use the correct game ID
+            date: statistic_game.formatted_date,
             # Include other game attributes as needed
           }
         }
