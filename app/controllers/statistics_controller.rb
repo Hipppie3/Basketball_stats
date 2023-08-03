@@ -2,14 +2,26 @@ class StatisticsController < ApplicationController
 # skip_before_action :authorize, only: [:index, :show]
 
   def index
-    player = Player.find(params[:player_id])
-    statistics = player.statistics.includes(:game) # Eager load the associated games
+    if params[:player_id].present?
+      player = Player.find(params[:player_id])
+      statistics = player.statistics.includes(:game) # Eager load the associated games
+    else
+      statistics = Statistic.all
+    end
+
     render json: statistics.to_json(include: :game) # Include the game data in the JSON response
   end
 
   def show
-    game = Game.find(params[:game_id]) # Find the game by game_id
-    statistic = game.statistics.find(params[:id]) # Find the statistic within that game
+    if params[:game_id].present?
+      # If the 'game_id' parameter is provided, find the statistic within that game
+      game = Game.find(params[:game_id])
+      statistic = game.statistics.find(params[:id]) # Find the statistic within that game
+    else
+      # If the 'game_id' parameter is not provided, find the statistic directly by ID
+      statistic = Statistic.find(params[:id]) # Find the statistic by ID, regardless of any game association
+    end
+
     render json: statistic
   end
 
