@@ -6,12 +6,12 @@ class GamesController < ApplicationController
   end
   
 
-  def show
+ def show
     @game = Game.find_by(id: params[:id])
     if @game.nil?
       render json: { error: 'Game not found' }, status: :not_found
     else
-      render json: @game, include: :statistics, status: :ok
+      render json: @game, include: { statistics: { include: :player } }, status: :ok
     end
   end
   
@@ -48,4 +48,3 @@ def game_params
 end
 
 end
-  
