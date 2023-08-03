@@ -170,7 +170,7 @@ def players_for_game
           pts: statistic.pts,
           game: {
             id: statistic_game.id,
-            name: statistic_game.name,
+            name: statistic_game.name, # Include the game name
             date: statistic_game.formatted_date,
             # Include other game attributes as needed
           }
@@ -181,7 +181,7 @@ def players_for_game
         {
           id: player_game.id,
           date: player_game.formatted_date,
-          # Include other game attributes as needed
+          name: player_game.name,# Include other game attributes as needed
         }
       end
     }
