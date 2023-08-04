@@ -25,14 +25,9 @@ class StatisticsController < ApplicationController
     render json: statistic
   end
 
- def update
+  def update
     statistic = Statistic.find(params[:id])
-
-    # Extract the game_id from the request parameters
-    game_id = params[:statistic].delete(:game_id)
-
-    # Find the game by game_id
-    game = Game.find(game_id)
+    game = Game.find(params[:game_id]) # Find the game by game_id
 
     if statistic.update(statistic_params.merge(game: game))
       render json: statistic, status: :ok
@@ -41,15 +36,9 @@ class StatisticsController < ApplicationController
     end
   end
 
- def create
+  def create
     player = Player.find(params[:player_id])
-
-    # Extract the game_id from the request parameters
-    game_id = params[:statistic].delete(:game_id)
-
-    # Create a new statistic record and associate it with the player and game
-    statistic = player.statistics.new(statistic_params)
-    statistic.game_id = game_id
+    statistic = player.statistics.create(statistic_params)
 
     if statistic.save
       render json: statistic, status: :created
@@ -67,6 +56,6 @@ class StatisticsController < ApplicationController
   private
 
   def statistic_params
-    params.require(:statistic).permit(:w_l, :ppg, :rbg, :apg, :spg, :bpg, :fgm, :fga, :fg_percentage, :two_pm, :two_pa, :three_pm, :three_pa, :oreb, :dreb, :reb, :ast, :stl, :blk, :to, :pts)
+    params.require(:statistic).permit(game_id, :w_l, :ppg, :rbg, :apg, :spg, :bpg, :fgm, :fga, :fg_percentage, :two_pm, :two_pa, :three_pm, :three_pa, :oreb, :dreb, :reb, :ast, :stl, :blk, :to, :pts)
   end
 end
