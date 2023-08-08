@@ -12,7 +12,7 @@ class GamesController < ApplicationController
     if @game.nil?
       render json: { error: 'Game not found' }, status: :not_found
     else
-      render json: @game.as_json(include: { statistics: { include: { player: { include: :team, :image_attachment } } } }), status: :ok
+      render json: @game.as_json(include: { statistics: { include: { player: { include: :team } } } }), status: :ok
     end
   end
   
