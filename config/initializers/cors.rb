@@ -35,7 +35,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 
     resource '/games/*',
       headers: :any,
-      methods: [:get, :post, :delete, :show, :update, :options, :head],
+      methods: [:get, :post, :delete, :show, :update, :put, :patch, :options, :head],
       credentials: true
       
     resource '/users/*',
