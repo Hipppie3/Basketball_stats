@@ -42,6 +42,16 @@ class GamesController < ApplicationController
     end
   end
 
+    def destroy
+    @game = Game.find_by(id: params[:id])
+    if @game.nil?
+      render json: { error: 'Game not found' }, status: :not_found
+    else
+      @game.destroy
+      head :no_content
+    end
+  end
+
   private
 
 def game_params
