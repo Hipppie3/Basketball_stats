@@ -6,15 +6,38 @@ class GamesController < ApplicationController
   end
   
 
-  def show
-    @game = Game.find_by(id: params[:id])
+def show
+  @game = Game.find_by(id: params[:id])
 
-    if @game.nil?
-      render json: { error: 'Game not found' }, status: :not_found
-    else
-      render json: @game.as_json(include: { statistics: { include: { player: { include: :team } } } }), status: :ok
+  if @game.nil?
+    render json: { error: 'Game not found' }, status: :not_found
+  else
+    game_data = @game.as_json(include: {
+      statistics: {
+        include: {
+          player: {
+            include: [:team, :image_attachment] # Include the image_attachment
+          }
+        }
+      }
+    })
+
+    players_data_with_images = game_data['statistics'].map do |statistic|
+      player_data = statistic['player']
+      if player_data['image_attachment'].present?
+        player_data['image_url'] = url_for(player_data['image_attachment'])
+      else
+        player_data['image_url'] = nil
+      end
+      player_data.delete('image_attachment') # Remove the image_attachment key
+      player_data
     end
+
+    game_data['statistics'] = players_data_with_images
+    render json: game_data, status: :ok
   end
+end
+
   
   def new
     @game = Game.new
@@ -45,7 +68,7 @@ class GamesController < ApplicationController
     def destroy
     @game = Game.find_by(id: params[:id])
     if @game.nil?
-      render json: { error: 'Game not found' }, status: :not_found
+      render json: { error: 'Game not found' }, status: :not_foundg
     else
       @game.destroy
       head :no_content
