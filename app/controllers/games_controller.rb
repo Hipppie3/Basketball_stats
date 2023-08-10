@@ -42,15 +42,20 @@ class GamesController < ApplicationController
     end
   end
 
-    def destroy
-    @game = Game.find_by(id: params[:id])
-    if @game.nil?
-      render json: { error: 'Game not found' }, status: :not_foundg
-    else
-      @game.destroy
-      head :no_content
-    end
+def destroy
+  @game = Game.find_by(id: params[:id])
+  if @game.nil?
+    render json: { error: 'Game not found' }, status: :not_found
+  else
+    # Delete associated statistics records first
+    @game.statistics.destroy_all
+    
+    # Now you can safely delete the game
+    @game.destroy
+    head :no_content
   end
+end
+
 
   private
 

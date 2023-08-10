@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_28_215937) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_10_215127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -148,7 +148,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_28_215937) do
   add_foreign_key "players", "sports"
   add_foreign_key "players", "teams"
   add_foreign_key "sport_media_videos", "sports"
-  add_foreign_key "statistics", "games"
+  add_foreign_key "statistics", "games", on_delete: :cascade
   add_foreign_key "statistics", "players"
   add_foreign_key "teams", "sports"
   add_foreign_key "videos", "players"
