@@ -15,7 +15,4 @@ class Game < ApplicationRecord
   def formatted_date
     self[:date].strftime('%m/%d/%Y') if self[:date]
   end
-
-  # Add accessor methods for video_url, home_team_score, and away_team_score
-  attr_accessor :video_url, :home_team_score, :away_team_score
 end
