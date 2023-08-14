@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_10_215127) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_14_191931) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_215127) do
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "video_url"
+    t.integer "home_team_score"
+    t.integer "away_team_score"
   end
 
   create_table "players", force: :cascade do |t|
@@ -75,6 +78,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_215127) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "game_id"
+    t.index ["game_id"], name: "index_sport_media_videos_on_game_id"
     t.index ["sport_id"], name: "index_sport_media_videos_on_sport_id"
   end
 
@@ -147,6 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_215127) do
   add_foreign_key "game_players", "players"
   add_foreign_key "players", "sports"
   add_foreign_key "players", "teams"
+  add_foreign_key "sport_media_videos", "games"
   add_foreign_key "sport_media_videos", "sports"
   add_foreign_key "statistics", "games", on_delete: :cascade
   add_foreign_key "statistics", "players"
