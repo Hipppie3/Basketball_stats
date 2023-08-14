@@ -28,18 +28,20 @@ class GamesController < ApplicationController
     end
   end
 
-  def update
-    @game = Game.find_by(id: params[:id])
-    if @game.nil?
-      render json: { error: 'Game not found' }, status: :not_found
+def update
+  @game = Game.find_by(id: params[:id])
+
+  if @game.nil?
+    render json: { error: 'Game not found' }, status: :not_found
+  else
+    if @game.update(game_params)
+      render json: @game, status: :ok
     else
-      if @game.update(game_params)
-        render json: @game, status: :ok
-      else
-        render json: @game.errors, status: :unprocessable_entity
-      end
+      render json: @game.errors, status: :unprocessable_entity
     end
   end
+end
+
 
   def destroy
     @game = Game.find_by(id: params[:id])
