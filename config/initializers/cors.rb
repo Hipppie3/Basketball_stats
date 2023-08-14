@@ -48,5 +48,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       methods: [:get, :post, :show, :update, :put, :patch, :delete, :options, :head],
       credentials: true
 
+      resource '/sport_media_videos/*',
+      headers: :any,
+      methods: [:get, :show],
+      credentials: true
   end
 end
