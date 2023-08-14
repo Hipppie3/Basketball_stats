@@ -1,10 +1,9 @@
 class Game < ApplicationRecord
-has_many :game_players
-has_many :players, through: :game_players
-has_many :statistics
+  has_many :game_players
+  has_many :players, through: :game_players
+  has_many :statistics
 
-
-def date=(date_str)
+  def date=(date_str)
     # Convert the string in "month/day/year" format to a Date object
     self[:date] = Date.strptime(date_str, '%m/%d/%Y')
   rescue ArgumentError
@@ -16,4 +15,7 @@ def date=(date_str)
   def formatted_date
     self[:date].strftime('%m/%d/%Y') if self[:date]
   end
+
+  # Add accessor methods for video_url, home_team_score, and away_team_score
+  attr_accessor :video_url, :home_team_score, :away_team_score
 end

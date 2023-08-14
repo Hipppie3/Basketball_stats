@@ -30,7 +30,6 @@ class GamesController < ApplicationController
 
 def update
   @game = Game.find_by(id: params[:id])
-
   if @game.nil?
     render json: { error: 'Game not found' }, status: :not_found
   else
